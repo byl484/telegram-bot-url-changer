@@ -1,0 +1,18 @@
+{
+    "compilerOptions": {
+        "target": "ES2023",
+        "module": "CommonJS",
+        "strict": true,
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "sourceMap": true,
+        "outDir": "./dist",
+        "rootDir": "./src",
+        "noUncheckedIndexedAccess": true,
+        "exactOptionalPropertyTypes": true
+    },
+    "include": ["src/**/*.ts"],
+    "exclude": ["node_modules", "dist"]
+}
