@@ -2,6 +2,7 @@ import 'dotenv/config';
 import { Bot } from 'grammy';
 import pg from 'pg';
 import { validateSpotifyUrl } from './validateUrl';
+import { messages } from './messages';
 
 const { Pool } = pg;
 
@@ -32,18 +33,23 @@ bot.on('message:text', async (ctx) => {
     const userId = ctx.from?.id.toString();
 
     if (!userId || !allowedUserIds.has(userId)) {
-        await ctx.reply('Unauthorized');
+        await ctx.reply(messages.unauthorized);
         return;
     }
 
     const spotifyUrl = validateSpotifyUrl(ctx.message.text);
     if (!spotifyUrl) {
-        await ctx.reply('Please send a valid Spotify link.');
+        await ctx.reply(messages.invalidLink);
         return;
     }
 
-    //TODO: Changing of the URL based on who requests it.
-    await ctx.reply(`Link updated successfully to:\n${spotifyUrl}`);
+    try {
+        // TODO: Changing of the URL based on who requests it.
+        await ctx.reply(`${messages.updateSuccess}\n${spotifyUrl}`);
+    } catch (error) {
+        console.error('Error handling message:', error);
+        await ctx.reply(messages.updateError);
+    }
 });
 
 async function main() {
