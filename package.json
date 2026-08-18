@@ -1,19 +1,19 @@
 {
-    "name": "tg-bot",
+    "name": "telegram-bot-url-changer",
     "version": "1.0.0",
-    "description": "",
-    "main": "index.js",
+    "description": "Telegram bot for updating a Spotify URL",
+    "main": "dist/main.js",
     "engines": {
         "node": ">=24.0.0 <25.0.0",
         "npm": ">=10.0.0"
     },
     "scripts": {
-        "dev": "ts-node src/index.ts",
+        "dev": "ts-node src/main.ts",
         "build": "tsc",
-        "start": "node dist/index.js"
+        "start": "node dist/main.js"
     },
     "keywords": [],
-    "author": "",
+    "author": "byl484",
     "license": "MIT",
     "devDependencies": {
         "@types/node": "^26.2.0",
