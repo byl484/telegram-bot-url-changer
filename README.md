@@ -1,10 +1,10 @@
-# TgBotSpotifyUrlChanger
+# telegram-bot-url-changer
 
-A small Telegram bot that allows authorized Telegram users to update a Spotify link used by TBD.
+A small application that uses the Telegram Bot API to allow authorized users to update a configured Spotify link.
 
 ## Features
 
-- Accepts Spotify links through Telegram
+- Accepts Spotify links through Telegram Bot API
 - Restricts access to specific Telegram user IDs
 - Validates submitted Spotify URLs
 - Updates the configured URL to TBD
@@ -39,7 +39,7 @@ BOT_TOKEN=your_telegram_bot_token
 ALLOWED_USER_IDS=1234,5678
 ```
 
-BOT_TOKEN is the token provided by BotFather.
+BOT_TOKEN is the token provided by Telegram's BotFather.
 
 ALLOWED_USER_IDS is a comma-separated list of Telegram user IDs that are allowed to update the Spotify link.
 
