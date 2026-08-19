@@ -1,13 +1,9 @@
 import 'dotenv/config';
 import { Bot } from 'grammy';
-import pg from 'pg';
 import { validateUrl } from './urlValidator';
 import { messages } from './messages';
 
-const { Pool } = pg;
-
 const botToken = process.env.BOT_TOKEN;
-const databaseUrl = process.env.DATABASE_URL;
 const allowedUserIds = new Set(
     (process.env.ALLOWED_USER_IDS ?? '')
         .split(',')
@@ -19,15 +15,7 @@ if (!botToken) {
     throw new Error('BOT_TOKEN is not set');
 }
 
-if (!databaseUrl) {
-    throw new Error('DATABASE_URL is not set');
-}
-
 const bot = new Bot(botToken);
-
-const pool = new Pool({
-    connectionString: databaseUrl,
-});
 
 bot.on('message:text', async (ctx) => {
     const userId = ctx.from?.id.toString();

@@ -1,4 +1,4 @@
-import { startBot } from './telegramBot/telegramBot';
+import { startBot } from './bot/bot';
 import { startServer } from './server/server';
 
 async function main(): Promise<void> {
