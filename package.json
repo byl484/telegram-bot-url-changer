@@ -9,8 +9,10 @@
     },
     "scripts": {
         "dev": "nodemon --exec ts-node src/main.ts",
+        "dev:init": "nodemon --exec ts-node src/main.ts --init",
         "build": "tsc",
-        "start": "node dist/main.js"
+        "start": "node dist/main.js",
+        "start:init": "node dist/main.js --init"
     },
     "keywords": [],
     "author": "byl484",

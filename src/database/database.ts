@@ -4,36 +4,29 @@ import path from 'node:path';
 import type { User } from './user.interface';
 import { requiredEnv } from '../helpers/requiredEnv';
 
-const INITIAL_USERS: User[] = [
-    {
-        telegramUserId: requiredEnv('INITIAL_USER_1_TELEGRAM_ID'),
-        username: requiredEnv('INITIAL_USER_1_USERNAME'),
-        link: requiredEnv('INITIAL_USER_1_LINK'),
-    },
-    {
-        telegramUserId: requiredEnv('INITIAL_USER_2_TELEGRAM_ID'),
-        username: requiredEnv('INITIAL_USER_2_USERNAME'),
-        link: requiredEnv('INITIAL_USER_2_LINK'),
-    },
-];
-
 let db: Datastore<User> | null = null;
 let currentPath: string | null = null;
 
-export async function initDb(filename: string): Promise<Datastore<User>> {
-    const directory = path.dirname(filename);
+export async function openDb(
+    databasePath: string,
+    shouldInitializeUsers = false,
+): Promise<Datastore<User>> {
+    const directory = path.dirname(databasePath);
 
     await fs.mkdir(directory, { recursive: true });
 
     db = new Datastore<User>({
-        filename,
+        filename: databasePath,
         autoload: true,
     });
 
-    currentPath = filename;
+    currentPath = databasePath;
 
     await ensureUserIndex();
-    await initializeUsers();
+
+    if (shouldInitializeUsers) {
+        await initializeUsers();
+    }
 
     return db;
 }
@@ -102,37 +95,32 @@ function ensureUserIndex(): Promise<void> {
 }
 
 async function initializeUsers(): Promise<void> {
-    const users = await findUsers();
+    const initialUsers: User[] = [
+        {
+            telegramUserId: requiredEnv('INITIAL_USER_1_TELEGRAM_ID'),
+            username: requiredEnv('INITIAL_USER_1_USERNAME'),
+            link: requiredEnv('INITIAL_USER_1_LINK'),
+        },
+        {
+            telegramUserId: requiredEnv('INITIAL_USER_2_TELEGRAM_ID'),
+            username: requiredEnv('INITIAL_USER_2_USERNAME'),
+            link: requiredEnv('INITIAL_USER_2_LINK'),
+        },
+    ];
 
-    if (users.length !== INITIAL_USERS.length) {
-        await removeAllUsers();
-
-        await new Promise<void>((resolve, reject) => {
-            getDb().insert(INITIAL_USERS, (error) => {
-                if (error) {
-                    reject(error);
-                    return;
-                }
-
-                resolve();
-            });
-        });
-
-        console.log('Database users reset');
-    }
-}
-
-function findUsers(): Promise<User[]> {
-    return new Promise((resolve, reject) => {
-        getDb().find({}, (error: Error, users: User[]) => {
+    await removeAllUsers();
+    await new Promise<void>((resolve, reject) => {
+        getDb().insert(initialUsers, (error) => {
             if (error) {
                 reject(error);
                 return;
             }
 
-            resolve(users);
+            resolve();
         });
     });
+
+    console.log('Database users reset');
 }
 
 function removeAllUsers(): Promise<void> {
@@ -148,14 +136,10 @@ function removeAllUsers(): Promise<void> {
     });
 }
 
-export function getDb(): Datastore<User> {
+function getDb(): Datastore<User> {
     if (!db) {
         throw new Error('Database has not been initialized');
     }
 
     return db;
-}
-
-export function getDbPath(): string | null {
-    return currentPath;
 }

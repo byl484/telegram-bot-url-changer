@@ -1,11 +1,12 @@
 import 'dotenv/config';
 import { startBot } from './bot/bot';
 import { startServer } from './server/server';
-import { initDb } from './database/database';
+import { openDb } from './database/database';
 import { requiredEnv } from './helpers/requiredEnv';
 
 async function main(): Promise<void> {
-    await initDb(requiredEnv('DATABASE_PATH'));
+    const shouldInitializeUsers = process.argv.includes('--init');
+    await openDb(requiredEnv('DATABASE_PATH'), shouldInitializeUsers);
 
     await Promise.all([startBot(), startServer()]);
 }
