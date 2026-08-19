@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 export const messages = {
     unauthorized: process.env.UNAUTHORIZED_MESSAGE ?? 'Unauthorized',
     invalidLink: process.env.INVALID_LINK_MESSAGE ?? 'Please send a valid Spotify link.',

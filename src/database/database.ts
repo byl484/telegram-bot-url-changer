@@ -2,7 +2,6 @@ import Datastore from '@seald-io/nedb';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import type { User } from './user.interface';
-import 'dotenv/config';
 import { requiredEnv } from '../helpers/requiredEnv';
 
 const INITIAL_USERS: User[] = [

@@ -1,4 +1,3 @@
-import 'dotenv/config';
 import { Bot } from 'grammy';
 import { validateUrl } from './urlValidator';
 import { messages } from './messages';
