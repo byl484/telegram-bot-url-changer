@@ -1,6 +1,6 @@
 import 'dotenv/config';
 
-export const messages = {
+export const botMessages = {
     unauthorized: process.env.UNAUTHORIZED_MESSAGE ?? 'Unauthorized',
     invalidLink: process.env.INVALID_LINK_MESSAGE ?? 'Please send a valid Spotify link.',
     updateSuccess: process.env.UPDATE_SUCCESS_MESSAGE ?? 'Link updated successfully to:',
