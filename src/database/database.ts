@@ -43,20 +43,20 @@ export function changeUserLink(telegramUserId: string, link: string): Promise<Us
         getDb().update(
             { telegramUserId },
             { $set: { link } },
-            {},
-            (error, _numAffected, affectedDocuments) => {
+            { returnUpdatedDocs: true },
+            (error, _numAffected, affectedDocument) => {
                 if (error) {
                     reject(error);
                     return;
                 }
 
-                resolve(affectedDocuments ?? null);
+                resolve(affectedDocument ?? null);
             },
         );
     });
 }
 
-function findUserByTelegramId(telegramUserId: string): Promise<User | null> {
+export function findUserByTelegramId(telegramUserId: string): Promise<User | null> {
     return new Promise((resolve, reject) => {
         getDb().findOne({ telegramUserId }, (error, user) => {
             if (error) {
