@@ -24,8 +24,8 @@
         "typescript": "^6.0.3"
     },
     "dependencies": {
+        "@seald-io/nedb": "^4.1.2",
         "dotenv": "^17.4.2",
-        "grammy": "^1.45.1",
-        "pg": "^8.23.0"
+        "grammy": "^1.45.1"
     }
 }
