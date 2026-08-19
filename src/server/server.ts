@@ -1,6 +1,7 @@
 import http from 'node:http';
+import { requiredEnv } from '../helpers/requiredEnv';
 
-const PORT = Number(process.env.PORT) || 3000;
+const PORT = Number(requiredEnv('SERVER_PORT'));
 
 export function startServer(): Promise<http.Server> {
     return new Promise((resolve, reject) => {
