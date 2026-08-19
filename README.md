@@ -25,21 +25,38 @@ Install dependencies:
 
 ## Configuration
 
-Create a .env file based on .env.example:
+Create a `.env` file based on `.env.example`:
 
     cp .env.example .env
 
-Configure the following environment variables:
+### Application
 
     BOT_TOKEN=your_telegram_bot_token
-    ALLOWED_USER_IDS=1234,5678
-    PORT=3000
+    DATABASE_PATH=data/database.db
+    SERVER_PORT=3000
 
-BOT_TOKEN is the token provided by Telegram's BotFather.
+`BOT_TOKEN` is the token provided by Telegram's BotFather. `DATABASE_PATH` specifies the path to the NeDB database file. `SERVER_PORT` specifies the port used by the HTTP server.
 
-ALLOWED_USER_IDS is a comma-separated list of Telegram user IDs that are allowed to update the link.
+### Initial users
 
-PORT specifies the port used by the HTTP server. It defaults to 3000 if not provided.
+    INITIAL_USER_1_TELEGRAM_ID=your_first_user_telegram_id
+    INITIAL_USER_1_USERNAME=first_username
+    INITIAL_USER_1_LINK=https://example.com/first-link
+
+    INITIAL_USER_2_TELEGRAM_ID=your_second_user_telegram_id
+    INITIAL_USER_2_USERNAME=second_username
+    INITIAL_USER_2_LINK=https://example.com/second-link
+
+The `INITIAL_USER_*` variables define the users that are initialized in the database.
+
+### Messages
+
+    UNAUTHORIZED_MESSAGE=Unauthorized.
+    INVALID_LINK_MESSAGE=Please send a valid link.
+    UPDATE_SUCCESS_MESSAGE=Link updated successfully to:
+    UPDATE_ERROR_MESSAGE=Failed to update the link.
+
+The `*_MESSAGE` variables configure the messages sent by the Telegram bot.
 
 ## Development
 
