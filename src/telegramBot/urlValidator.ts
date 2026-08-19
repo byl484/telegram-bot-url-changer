@@ -1,14 +1,10 @@
-export function validateSpotifyUrl(input: string): string | null {
+export function validateUrl(input: string): string | null {
     const value = input.trim();
 
     try {
         const url = new URL(value);
 
         if (url.protocol !== 'https:') {
-            return null;
-        }
-
-        if (url.hostname !== 'open.spotify.com') {
             return null;
         }
 
