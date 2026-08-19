@@ -37,7 +37,7 @@ Configure the following environment variables:
 
 BOT_TOKEN is the token provided by Telegram's BotFather.
 
-ALLOWED_USER_IDS is a comma-separated list of Telegram user IDs that are allowed to update the Spotify link.
+ALLOWED_USER_IDS is a comma-separated list of Telegram user IDs that are allowed to update the link.
 
 PORT specifies the port used by the HTTP server. It defaults to 3000 if not provided.
 
