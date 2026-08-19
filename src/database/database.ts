@@ -69,6 +69,19 @@ export function findUserByTelegramId(telegramUserId: string): Promise<User | nul
     });
 }
 
+export function findUserByUsername(username: string): Promise<User | null> {
+    return new Promise((resolve, reject) => {
+        getDb().findOne({ username }, (error, user) => {
+            if (error) {
+                reject(error);
+                return;
+            }
+
+            resolve(user ?? null);
+        });
+    });
+}
+
 function ensureUserIndex(): Promise<void> {
     return new Promise((resolve, reject) => {
         getDb().ensureIndex(
