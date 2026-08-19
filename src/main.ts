@@ -8,8 +8,6 @@ async function main(): Promise<void> {
     await initDb(requiredEnv('DATABASE_PATH'));
 
     await Promise.all([startBot(), startServer()]);
-
-    console.log('Application started');
 }
 
 main().catch((error) => {
