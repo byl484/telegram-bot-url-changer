@@ -1,4 +1,4 @@
-# telegram-bot-url-changer
+# Telegram URL Manager Bot with HTTP Server
 
 A small TypeScript application that runs a Telegram bot alongside a lightweight HTTP server. Authorized Telegram users can update a configured link.
 
