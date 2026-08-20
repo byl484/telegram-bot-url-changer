@@ -1,8 +1,7 @@
 import http from 'node:http';
 import { findUserByUsername } from '../database/database';
-import { requiredEnv } from '../helpers/requiredEnv';
 
-export function startServer(port = Number(requiredEnv('SERVER_PORT'))): Promise<http.Server> {
+export function startServer(port: number): Promise<http.Server> {
     return new Promise((resolve, reject) => {
         const server = http.createServer(async (req, res) => {
             const url = new URL(req.url ?? '/', `http://${req.headers.host}`);

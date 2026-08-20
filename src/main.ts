@@ -9,7 +9,13 @@ async function main(): Promise<void> {
 
     await openDb(requiredEnv('DATABASE_PATH'), shouldInitializeUsers);
 
-    await Promise.all([startBot(), startServer()]);
+    const port = Number(requiredEnv('SERVER_PORT'));
+
+    if (!Number.isInteger(port) || port < 1 || port > 65535) {
+        throw new Error('SERVER_PORT must be a valid port number');
+    }
+
+    await Promise.all([startBot(), startServer(port)]);
 }
 
 main().catch((error) => {
