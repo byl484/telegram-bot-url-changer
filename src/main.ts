@@ -6,6 +6,7 @@ import { requiredEnv } from './helpers/requiredEnv';
 
 async function main(): Promise<void> {
     const shouldInitializeUsers = process.argv.includes('--init');
+
     await openDb(requiredEnv('DATABASE_PATH'), shouldInitializeUsers);
 
     await Promise.all([startBot(), startServer()]);
