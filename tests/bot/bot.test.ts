@@ -10,15 +10,6 @@ vi.mock('../../src/database/database', () => ({
     changeUserLink: vi.fn(),
 }));
 
-vi.mock('../../src/bot/messages', () => ({
-    messages: {
-        unauthorized: 'Unauthorized',
-        invalidLink: 'Invalid link',
-        updateError: 'Update error',
-        updateSuccess: 'Updated successfully',
-    },
-}));
-
 vi.mock('../../src/bot/urlValidator', () => ({
     validateUrl: vi.fn(),
 }));

@@ -1,21 +1,19 @@
-import { describe, expect, it, afterEach } from 'vitest';
+import { afterEach, describe, expect, it, vi } from 'vitest';
 import { requiredEnv } from '../../src/helpers/requiredEnv';
 
 describe('requiredEnv', () => {
-    const originalEnv = process.env;
-
     afterEach(() => {
-        process.env = originalEnv;
+        vi.unstubAllEnvs();
     });
 
     it('returns the environment variable value', () => {
-        process.env.TEST_VALUE = 'hello';
+        vi.stubEnv('TEST_VALUE', 'hello');
 
         expect(requiredEnv('TEST_VALUE')).toBe('hello');
     });
 
     it('throws when the environment variable is missing', () => {
-        delete process.env.TEST_VALUE;
+        vi.stubEnv('TEST_VALUE', undefined);
 
         expect(() => requiredEnv('TEST_VALUE')).toThrow(
             'Missing required environment variable: TEST_VALUE',
@@ -23,7 +21,7 @@ describe('requiredEnv', () => {
     });
 
     it('throws when the environment variable is empty', () => {
-        process.env.TEST_VALUE = '';
+        vi.stubEnv('TEST_VALUE', '');
 
         expect(() => requiredEnv('TEST_VALUE')).toThrow(
             'Missing required environment variable: TEST_VALUE',
@@ -31,7 +29,7 @@ describe('requiredEnv', () => {
     });
 
     it('throws when the environment variable contains only whitespace', () => {
-        process.env.TEST_VALUE = '   ';
+        vi.stubEnv('TEST_VALUE', '   ');
 
         expect(() => requiredEnv('TEST_VALUE')).toThrow(
             'Missing required environment variable: TEST_VALUE',
