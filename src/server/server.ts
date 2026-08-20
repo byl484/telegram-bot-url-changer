@@ -2,9 +2,7 @@ import http from 'node:http';
 import { findUserByUsername } from '../database/database';
 import { requiredEnv } from '../helpers/requiredEnv';
 
-const PORT = Number(requiredEnv('SERVER_PORT'));
-
-export function startServer(): Promise<http.Server> {
+export function startServer(port = Number(requiredEnv('SERVER_PORT'))): Promise<http.Server> {
     return new Promise((resolve, reject) => {
         const server = http.createServer(async (req, res) => {
             const url = new URL(req.url ?? '/', `http://${req.headers.host}`);
@@ -46,8 +44,8 @@ export function startServer(): Promise<http.Server> {
 
         server.once('error', reject);
 
-        server.listen(PORT, () => {
-            console.log(`HTTP server listening on port ${PORT}`);
+        server.listen(port, () => {
+            console.log(`HTTP server listening on port ${port}`);
             resolve(server);
         });
     });
