@@ -9,8 +9,8 @@ export function startServer(): Promise<http.Server> {
         const server = http.createServer(async (req, res) => {
             const url = new URL(req.url ?? '/', `http://${req.headers.host}`);
 
-            if (req.method === 'GET' && url.pathname.startsWith('/')) {
-                const username = url.pathname.slice(1);
+            if (req.method === 'GET' && url.pathname.startsWith('/u/')) {
+                const username = url.pathname.slice(3);
 
                 if (!username || username.includes('/')) {
                     res.writeHead(400);
