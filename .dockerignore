@@ -2,6 +2,11 @@ node_modules
 dist
 data
 .env
-.git
 .github
-*.log
+.git
+.gitignore
+.env.example
+.nvmrc
+.prettierrc
+README.md
+LICENSE
