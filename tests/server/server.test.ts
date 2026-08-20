@@ -4,7 +4,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { findUserByUsername } from '../../src/database/database';
 import { startServer } from '../../src/server/server';
 
-vi.mock('../database/database', () => ({
+vi.mock('../../src/database/database', () => ({
     findUserByUsername: vi.fn(),
 }));
 

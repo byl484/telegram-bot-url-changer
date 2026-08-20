@@ -5,12 +5,12 @@ import { messages } from '../../src/bot/messages';
 import { registerBotHandlers } from '../../src/bot/bot';
 import { validateUrl } from '../../src/bot/urlValidator';
 
-vi.mock('../database/database', () => ({
+vi.mock('../../src/database/database', () => ({
     findUserByTelegramId: vi.fn(),
     changeUserLink: vi.fn(),
 }));
 
-vi.mock('./messages', () => ({
+vi.mock('../../src/bot/messages', () => ({
     messages: {
         unauthorized: 'Unauthorized',
         invalidLink: 'Invalid link',
@@ -19,7 +19,7 @@ vi.mock('./messages', () => ({
     },
 }));
 
-vi.mock('./urlValidator', () => ({
+vi.mock('../../src/bot/urlValidator', () => ({
     validateUrl: vi.fn(),
 }));
 
