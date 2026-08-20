@@ -1,6 +1,5 @@
 import http from 'node:http';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-
 import { findUserByUsername } from '../../src/database/database';
 import { startServer } from '../../src/server/server';
 
@@ -13,6 +12,8 @@ describe('HTTP server', () => {
     let port: number;
 
     beforeEach(async () => {
+        vi.clearAllMocks();
+
         server = await startServer(0);
 
         const address = server.address();
@@ -22,10 +23,6 @@ describe('HTTP server', () => {
         }
 
         port = address.port;
-    });
-
-    beforeEach(() => {
-        vi.clearAllMocks();
     });
 
     afterEach(async () => {
