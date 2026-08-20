@@ -5,7 +5,6 @@ import type { User } from './user.interface';
 import { requiredEnv } from '../helpers/requiredEnv';
 
 let db: Datastore<User> | null = null;
-let currentPath: string | null = null;
 
 export async function openDb(
     databasePath: string,
@@ -19,8 +18,6 @@ export async function openDb(
         filename: databasePath,
         autoload: true,
     });
-
-    currentPath = databasePath;
 
     await ensureUserIndexes();
 
