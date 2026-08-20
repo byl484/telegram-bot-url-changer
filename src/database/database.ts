@@ -22,7 +22,7 @@ export async function openDb(
 
     currentPath = databasePath;
 
-    await ensureUserIndex();
+    await ensureUserIndexes();
 
     if (shouldInitializeUsers) {
         await initializeUsers();
@@ -75,25 +75,6 @@ export function findUserByUsername(username: string): Promise<User | null> {
     });
 }
 
-function ensureUserIndex(): Promise<void> {
-    return new Promise((resolve, reject) => {
-        getDb().ensureIndex(
-            {
-                fieldName: 'telegramUserId',
-                unique: true,
-            },
-            (error) => {
-                if (error) {
-                    reject(error);
-                    return;
-                }
-
-                resolve();
-            },
-        );
-    });
-}
-
 async function initializeUsers(): Promise<void> {
     const initialUsers: User[] = [
         {
@@ -142,4 +123,29 @@ function getDb(): Datastore<User> {
     }
 
     return db;
+}
+
+function ensureIndex(fieldName: 'telegramUserId' | 'username'): Promise<void> {
+    return new Promise((resolve, reject) => {
+        getDb().ensureIndex(
+            {
+                fieldName,
+                unique: true,
+            },
+            (error) => {
+                if (error) {
+                    reject(error);
+                    return;
+                }
+
+                resolve();
+            },
+        );
+    });
+}
+
+function ensureUserIndexes(): Promise<void> {
+    return Promise.all([ensureIndex('telegramUserId'), ensureIndex('username')]).then(
+        () => undefined,
+    );
 }
