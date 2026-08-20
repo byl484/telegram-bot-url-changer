@@ -141,8 +141,6 @@ function ensureIndex(fieldName: 'telegramUserId' | 'username'): Promise<void> {
     });
 }
 
-function ensureUserIndexes(): Promise<void> {
-    return Promise.all([ensureIndex('telegramUserId'), ensureIndex('username')]).then(
-        () => undefined,
-    );
+async function ensureUserIndexes(): Promise<void> {
+    await Promise.all([ensureIndex('telegramUserId'), ensureIndex('username')]);
 }
