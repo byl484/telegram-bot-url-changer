@@ -16,7 +16,7 @@ export function validateUrl(input: string): string | null {
             return null;
         }
 
-        if (/[\r\n\t]/.test(value)) {
+        if (/\s/.test(value)) {
             return null;
         }
 
