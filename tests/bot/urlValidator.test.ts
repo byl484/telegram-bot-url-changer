@@ -30,6 +30,10 @@ describe('validateUrl', () => {
         expect(validateUrl('https://example.com:8080')).toBeNull();
     });
 
+    it('rejects URLs containing spaces', () => {
+        expect(validateUrl('https://example.com/foo bar')).toBeNull();
+    });
+
     it('rejects URLs containing newlines', () => {
         expect(validateUrl('https://example.com/\nfoo')).toBeNull();
     });
@@ -40,6 +44,12 @@ describe('validateUrl', () => {
 
     it('rejects URLs containing tabs', () => {
         expect(validateUrl('https://example.com/\tfoo')).toBeNull();
+    });
+
+    it('accepts percent-encoded characters', () => {
+        expect(validateUrl('https://example.com/foo%20bar?test=hello%20world')).toBe(
+            'https://example.com/foo%20bar?test=hello%20world',
+        );
     });
 
     it('returns a normalized URL', () => {
